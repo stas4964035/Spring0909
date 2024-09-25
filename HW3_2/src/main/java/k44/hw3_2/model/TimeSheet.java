@@ -6,7 +6,7 @@ import java.time.LocalDate;
 @Data
 public class TimeSheet {
     private Long id;
-    private Long projectId;
+    private Long projectName;
     private int minutes;
     private LocalDate created;
 

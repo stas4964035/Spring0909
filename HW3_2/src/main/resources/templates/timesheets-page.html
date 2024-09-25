@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Timesheets</title>
+</head>
+<body>
+<h1>Запись учета рабочего времени</h1>
+<table>
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>Project</td>
+            <td>Minutes</td>
+            <td>createdAt</td>
+            <td>goTo</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="timesheet : ${timesheets}">
+            <td><span th:text="${timesheet.id}"></span> </td>
+            <td><a th:href="@{'/home/projects/{id}'(id=${timesheet.projectId})}"><span th:text="${timesheet.projectName}"></span></a></td>
+            <td><span th:text="${timesheet.minutes}"></span> </td>
+            <td><span th:text="${timesheet.createdAt}"></span> </td>
+            <td><a th:href="@{'/home/timesheets/{id}'(id=${timesheet.id})}" > goto </a> </td>
+
+        </tr>
+    </tbody>
+
+</table>
+
+
+</body>
+</html>

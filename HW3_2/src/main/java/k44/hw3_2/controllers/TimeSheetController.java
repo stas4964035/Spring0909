@@ -10,6 +10,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -23,10 +24,10 @@ public class TimeSheetController {
 
     @PostMapping
     public ResponseEntity<TimeSheet> create(@RequestBody TimeSheet timeSheet) {
-        if (timesheetService.create(timeSheet) != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(timeSheet);
-        }
-        return ResponseEntity.noContent().build();
+        timesheetService.create(timeSheet);
+        return ResponseEntity.status(HttpStatus.CREATED).body(timeSheet);
+
+
     }
 
 
@@ -40,24 +41,25 @@ public class TimeSheetController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TimeSheet>> getAll(@RequestParam(required = false, name = "createdAtBefore") LocalDate beforeDate,
-                                                  @RequestParam(required = false, name = "createdAtAfter") LocalDate afterDate) {
-        if (beforeDate != null) {
-            List<TimeSheet> timesheets = timesheetService.getBeforeDate(beforeDate);
-            return ResponseEntity.status(HttpStatus.OK).body(timesheets);
-        } else if (afterDate != null) {
-            List<TimeSheet> timesheets = timesheetService.getAfterDate(afterDate);
-            return ResponseEntity.status(HttpStatus.OK).body(timesheets);
-        }
-        return ResponseEntity.ok(timesheetService.getAll());
+    public ResponseEntity<List<TimeSheet>> getAll(@RequestParam(required = false) LocalDate beforeDate,
+                                                  @RequestParam(required = false) LocalDate afterDate) {
+
+        return ResponseEntity.ok(timesheetService.getAll(beforeDate, afterDate));
     }
+//    @GetMapping
+//    public ResponseEntity<List<TimeSheet>> getAll(@RequestParam(required = false) LocalDate beforeDate,
+//                                                  @RequestParam(required = false) LocalDate afterDate) {
+//
+//        return ResponseEntity.ok(timesheetService.getAll(beforeDate, afterDate));
+//    }
 
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         timesheetService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 
 }

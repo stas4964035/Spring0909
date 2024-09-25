@@ -46,12 +46,23 @@ public class TimesheetRepository {
 
     }
 
-    public List<TimeSheet> getBeforeDate(LocalDate date){
-        return List.copyOf(timesheets.stream().filter(ts -> ts.getCreated().isBefore(date)).toList());
-    }
+//    public List<TimeSheet> getBeforeDate(LocalDate date){
+//        return List.copyOf(timesheets.stream().filter(ts -> ts.getCreated().isBefore(date)).toList());
+//    }
+//
+//    public List<TimeSheet> getAfterDate(LocalDate date){
+//        return List.copyOf(timesheets.stream().filter(ts -> ts.getCreated().isAfter(date)).toList());
+//    }
 
-    public List<TimeSheet> getAfterDate(LocalDate date){
-        return List.copyOf(timesheets.stream().filter(ts -> ts.getCreated().isAfter(date)).toList());
-    }
 
+    public List<TimeSheet> getAll(LocalDate beforeDate, LocalDate afterDate) {
+        List<TimeSheet> result = List.copyOf(timesheets);
+        if(beforeDate!=null){
+            result = List.copyOf(result.stream().filter(ts -> ts.getCreated().isBefore(beforeDate)).toList());
+        }
+        if(afterDate!=null){
+            result = List.copyOf(result.stream().filter(ts -> ts.getCreated().isAfter(afterDate)).toList());
+        }
+        return result;
+    }
 }

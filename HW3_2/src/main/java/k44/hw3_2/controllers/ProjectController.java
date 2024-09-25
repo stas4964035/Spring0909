@@ -42,10 +42,8 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<Project> create(@RequestBody Project project){
         Project pr = projectService.create(project);
-        if(pr != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(pr);
-        }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(pr);
+
     }
 
     @DeleteMapping("/{id}")

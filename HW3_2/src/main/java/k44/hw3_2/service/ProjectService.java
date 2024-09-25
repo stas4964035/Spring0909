@@ -19,7 +19,7 @@ public class ProjectService {
         this.timesheetRepository = timesheetRepository;
     }
     public List<TimeSheet> getTimesheetsByProjectId(long projectId) {
-        return List.copyOf(timesheetRepository.getAll().stream().filter(ts -> ts.getProjectId().equals(projectId)).toList());
+        return List.copyOf(timesheetRepository.getAll().stream().filter(ts -> ts.getProjectName().equals(projectId)).toList());
     }
 
     public List<Project> getAll() {

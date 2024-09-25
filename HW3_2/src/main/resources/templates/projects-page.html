@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Timesheets</title>
+</head>
+<body>
+<h1>Проекты</h1>
+<table>
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>Name</td>
+            <td>goTo</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="project : ${projects}">
+            <td><span th:text="${project.id}"></span> </td>
+            <td><span th:text="${project.name}"></span> </td>
+            <td><a th:href="@{'/home/projects/{id}'(id=${project.id})}" > goto </a> </td>
+
+        </tr>
+    </tbody>
+
+</table>
+
+
+</body>
+</html>
